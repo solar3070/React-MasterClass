@@ -18,8 +18,12 @@ interface ChartProps {
 }
 
 function Chart({ coinId }: ChartProps) {
-  const { isLoading, data } = useQuery<IHistorical[]>(["ohlcv", coinId], () =>
-    fetchCoinHistory(coinId)
+  const { isLoading, data } = useQuery<IHistorical[]>(
+    ["ohlcv", coinId],
+    () => fetchCoinHistory(coinId),
+    {
+      refetchInterval: 10000,
+    }
   );
   return (
     <div>
@@ -63,9 +67,24 @@ function Chart({ coinId }: ChartProps) {
               labels: {
                 show: false,
               },
+              type: "datetime",
+              categories: data?.map((price) => price.time_close),
             },
             yaxis: {
               show: false,
+            },
+            fill: {
+              type: "gradient",
+              gradient: {
+                gradientToColors: ["blue"],
+                stops: [0, 100],
+              },
+            },
+            colors: ["red"],
+            tooltip: {
+              y: {
+                formatter: (value) => `$${value.toFixed(2)}`,
+              },
             },
           }}
         />

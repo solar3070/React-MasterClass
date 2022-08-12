@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import {
   Link,
   Route,
@@ -152,11 +153,19 @@ function Coin() {
   );
   const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(
     ["tickers", coinId],
-    () => fetchCoinTickers(coinId)
+    () => fetchCoinTickers(coinId),
+    {
+      refetchInterval: 5000,
+    }
   );
   const loading = infoLoading || tickersLoading;
   return (
     <Container>
+      <Helmet>
+        <title>
+          {state?.name ? state.name : loading ? "Loading..." : infodata?.name}
+        </title>
+      </Helmet>
       <Header>
         <Title>
           {state?.name ? state.name : loading ? "Loading..." : infodata?.name}
@@ -176,8 +185,8 @@ function Coin() {
               <span>${infodata?.symbol}</span>
             </OverviewItem>
             <OverviewItem>
-              <span>Open Source:</span>
-              <span>{infodata?.open_source ? "Yes" : "No"}</span>
+              <span>Price:</span>
+              <span>${tickersData?.quotes.USD.price.toFixed(3)}</span>
             </OverviewItem>
           </Overview>
           <Description>{infodata?.description}</Description>
