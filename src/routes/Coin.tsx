@@ -203,7 +203,10 @@ function Coin() {
 
           <Routes>
             <Route path="price" element={<Price />}></Route>
-            <Route path="chart" element={<Chart />}></Route>
+            <Route
+              path="chart"
+              element={<Chart coinId={coinId as string} />}
+            ></Route>
           </Routes>
         </>
       )}
