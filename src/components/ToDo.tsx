@@ -1,5 +1,5 @@
 import { useSetRecoilState } from "recoil";
-import { IToDo } from "../atoms";
+import { IToDo, toDoState } from "../atoms";
 
 function ToDo({ text, category, id }: IToDo) {
   const setToDos = useSetRecoilState(toDoState);
@@ -8,6 +8,11 @@ function ToDo({ text, category, id }: IToDo) {
     const {
       currentTarget: { name },
     } = event;
+    setToDos((oldToDos) => {
+      const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
+      const newtoDo = { id, text, category: name };
+      return oldToDos;
+    });
   };
   return (
     <li>
