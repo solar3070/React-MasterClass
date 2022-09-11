@@ -100,7 +100,7 @@ const navVariants = {
   top: {
     backgroundColor: "rgba(0, 0, 0, 0)",
   },
-  scoll: {
+  scroll: {
     backgroundColor: "rgba(0, 0, 0, 1)",
   },
 };
@@ -132,7 +132,7 @@ function Header() {
         navAnimation.start("top");
       }
     });
-  }, [scrollY]);
+  }, [scrollY, navAnimation]);
   return (
     <Nav variants={navVariants} animate={navAnimation} initial="top">
       <Col>
