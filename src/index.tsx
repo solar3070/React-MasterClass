@@ -13,7 +13,6 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Source Sans Pro', sans-serif;
     color: black;
-    background: linear-gradient(135deg, #e09, #d0e);
   }
   a {
     text-decoration: none;
